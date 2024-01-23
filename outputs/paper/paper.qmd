@@ -2,8 +2,7 @@
 title: "My title"
 subtitle: "My subtitle if needed"
 author: 
-  - First author
-  - Another author
+  - Ian Quan
 thanks: "Code and data are available at: LINK."
 date: today
 date-format: long
@@ -20,33 +19,69 @@ bibliography: references.bib
 
 library(tidyverse)
 library(palmerpenguins)
-```
+library(readr)
 
+```
 
 # Introduction
 
-You can and should cross-reference sections and sub-sections. 
+You can and should cross-reference sections and sub-sections.
 
 The remainder of this paper is structured as follows. @sec-data....
 
-
-
 # Data {#sec-data}
+
+Variable of interest: Neighbourhood name where offence occurred using City of Toronto's new 158 neighbourhood structure, Crime rate from 2014 to 2023, including assault rate, auto theft rate, bike theft rate, break and enter rate, homicide rate, robbery rate, shooting rate, motor vehicles theft rate, theft rate
 
 Some of our data is of penguins (@fig-bills), from @palmerpenguins.
 
 ```{r}
-#| label: fig-bills
+#| label: crime-rates-over-time
 #| fig-cap: Bills of penguins
 #| echo: false
 
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
+
+average_crime_rate <-read_csv(here::here("outputs/data/average_crime_rate.csv"))
+
+ggplot(average_crime_rate, aes(x = year)) +
+  geom_line(aes(y = assault, color = "Assault"), linetype = "solid", size = 1, alpha = 0.8) +
+  geom_line(aes(y = autotheft, color = "Auto Theft"), linetype = "solid", size = 1, alpha = 0.8) +
+  geom_line(aes(y = biketheft, color = "Bike Theft"), linetype = "solid", size = 1, alpha = 0.8) +
+  geom_line(aes(y = breakenter, color = "Break and Enter"), linetype = "solid", size = 1, alpha = 0.8) +
+  geom_line(aes(y = homicide, color = "Homicide"), linetype = "solid", size = 1, alpha = 0.8) +
+  geom_line(aes(y = robbery, color = "Robbery"), linetype = "solid", size = 1, alpha = 0.8) +
+  geom_line(aes(y = shooting, color = "Shooting"), linetype = "solid", size = 1, alpha = 0.8) +
+  geom_line(aes(y = theftover, color = "Theft Over"), linetype = "solid", size = 1, alpha = 0.8) +
+
+  scale_color_manual(
+    values = c(
+      "Assault" = "blue",
+      "Auto Theft" = "red",
+      "Bike Theft" = "green",
+      "Break and Enter" = "orange",
+      "Homicide" = "purple",
+      "Robbery" = "brown",
+      "Shooting" = "pink",
+      "Theft Over" = "magenta"
+    ),
+    name = "Crime Type",
+    labels = c(
+      "Assault", "Auto Theft", "Bike Theft", "Break and Enter",
+      "Homicide", "Robbery", "Shooting", "Theft Over $5000"
+    )
+  ) +
+  scale_size_continuous(name = "Line width", range = c(0.5, 2)) +
+
+  # Customize plot labels and theme as needed
+  labs(
+    title = "Average Crime Rates over time in City of Toronto's new 158 neighbourhood ",
+    x = "Year",
+    y = "Average Crime Rate (%)"
+  ) +
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(hjust = 0.1)  # Center the title
+  )
 ```
 
 Talk more about it.
@@ -54,95 +89,81 @@ Talk more about it.
 And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
 
 ```{r}
-#| label: fig-planes
-#| fig-cap: Relationship between wing length and width
+#| label: toronto_population_densit_2023
+#| fig-cap: Toronto population density in 2023
 #| echo: false
 #| warning: false
 #| message: false
+#| out.width: '70%'
 
-analysis_data <- read_csv(here::here("outputs/data/analysis_data.csv"))
-
-analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
+knitr::include_graphics(here::here("outputs/plots/plot_population_2023.png"))
 ```
 
-Talk way more about it. 
+---
+output:
+  pdf_document:
+    fig_width: 22
+    fig_height: 26
+---
+
+```{r}
+#| label: crime-rates-heat-map
+#| fig-cap: Crime rate heat maps in Toronto
+#| echo: false
+#| out.width: '100%'
+#| fig.align: "default"
 
 
 
-# Model
+crime_rate_columns <- c(
+  "assault_rate_2023",
+  "autotheft_rate_2023",
+  "biketheft_rate_2023",
+  "breakenter_rate_2023",
+  "homicide_rate_2023",
+  "robbery_rate_2023",
+  "shooting_rate_2023",
+  "theftfrommv_rate_2023",
+  "theftover_rate_2023"
+)
 
-The goal of our modelling strategy is twofold. Firstly,...
-
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
-
-## Model set-up
-
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
-
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
-\end{align}
-
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
+# Set up the layout for the plots
+par(mfrow = c(3, 3), mar = c(0, 0, 0, 0), oma = c(0, 0, 0, 0))
 
 
-### Model justification
 
-We expect a positive relationship between the size of the wings and time spent aloft. In particular...
+# Read and plot 9 PNG images
+for (i in 1:9) {
+  # Read the PNG image
+  img <- png::readPNG(here::here("outputs/plots", paste0("plot_", crime_rate_columns[i], ".png")))
+  
+  # Plot the image with resized dimensions
+  plot(1, type = "n", axes = FALSE, xlab = "", ylab = "")
+  rasterImage(img, 0.6, 0.7, 1.2, 1.3, interpolate = FALSE)
+}
+```
 
-We can use maths by including latex between dollar signs, for instance $\theta$.
 
 
+```{r}
+#| label: top-20-area
+#| fig-cap: Top 20 Neighbourhood's Average Crime Rates
+#| echo: false
+#| fig.align: "default"
+#| out.width: '100%'
+
+knitr::include_graphics(here::here("outputs/plots/plot_top_20_neighbourhood.png"))
+
+```
 # Results
 
 Our results are summarized in @tbl-modelresults.
-
-```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
-
-library(rstanarm)
-
-first_model <-
-  readRDS(file = here::here("outputs/models/first_model.rds"))
-```
-
-```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
-#| warning: false
-
-modelsummary::modelsummary(
-  list(
-    "First model" = first_model
-  ),
-  statistic = "mad",
-  fmt = 2
-)
-```
-
-
-
 
 # Discussion
 
 ## First discussion point {#sec-first-point}
 
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
+If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this.
 
 ## Second discussion point
 
@@ -156,8 +177,7 @@ Weaknesses and next steps should also be included.
 
 \appendix
 
-# Appendix {-}
-
+# Appendix {.unnumbered}
 
 # Additional data details
 
@@ -167,7 +187,7 @@ Weaknesses and next steps should also be included.
 
 In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
 
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
+In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows...
 
 ```{r}
 #| eval: true
@@ -179,15 +199,6 @@ In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. Th
 #| fig-cap: "Examining how the model fits, and is affected by, the data"
 #| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
 
-pp_check(first_model) +
-  theme_classic() +
-  theme(legend.position = "bottom")
-
-posterior_vs_prior(first_model) +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom") +
-  coord_flip()
 ```
 
 ## Diagnostics
@@ -206,16 +217,9 @@ posterior_vs_prior(first_model) +
 #| fig-subcap: ["Trace plot", "Rhat plot"]
 #| layout-ncol: 2
 
-plot(first_model, "trace")
 
-plot(first_model, "rhat")
 ```
-
-
 
 \newpage
 
-
 # References
-
-
