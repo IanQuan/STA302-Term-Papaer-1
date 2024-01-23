@@ -14,3 +14,6 @@ The repo is structured as:
 -   `outputs/data` contains the cleaned dataset that was constructed.
 -   `outputs/paper` contains the files used to generate the paper, including the Quarto document and reference bibliography file, as well as the PDF of the paper. 
 -   `scripts` contains the R scripts used to simulate, download and clean data.
+
+# Usage of Large Language Models (LLMs)
+This repository utilizes Large Language Models (LLMs) for various tasks. It is essential to provide transparency about their usage, Chat-GPT4 were employed during the data cleaning progress, the entire chat is included in the usage.txt file.
