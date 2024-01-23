@@ -3,7 +3,7 @@ title: "Visualizing Neighbourhood Crime Rates in Toronto"
 subtitle: "Is Toronto getting more dangerous?"
 author: 
   - Ian Quan
-thanks: "Code and data are available at: LINK."
+thanks: "Code and data are available at: https://github.com/IanQuan/STA302-Term-Papaer-1"
 date: today
 date-format: long
 abstract: "Toronto has maintained a low crime rate in comparison to other major cities. This paper endeavors to ascertain whether Toronto exhibits a tendency of becoming more dangerous over time. This study delves into the crime rate trends observed over the past decade, identifying neighborhoods with high crime rates across various crime categories. Additionally, the analysis explores the relationship between population density and crime rates. Upon careful examination, the findings suggest that Toronto is indeed experiencing an increase in overall crime rates but remains relatively safe when compared to other cities. Furthermore, the analysis reveals that there is no direct correlation between population density and crime rates."
@@ -25,8 +25,9 @@ library(tidyverse)
 
 Toronto consistently ranks high in assessments of urban safety. In @SafeCitiesIndex2021, Toronto earned the distinction of being the second safest city globally, surpassed only by Copenhagen in the Netherlands. However, despite these rankings, crime rates in Toronto have exhibited an upward trajectory in 2023, notably marked by a significant increase in shootings since 2019. In 2017, with the exception of homicide, all major crime offenses have shown an uptick in reported numbers compared to the corresponding period last year. To gain a holistic understanding of the overall trend in crime rates over the past decade, we have gathered a comprehensive dataset on crime rates in Toronto.
 
-While previous statistics, such as those from WorstTorontoNeighbourhoodsForCrime, have identified the most dangerous neighborhoods based on total reported crimes, these analyses often lack a nuanced perspective by not considering the population density of each neighborhood. To address this gap and offer a more comprehensive and equitable analysis, our study aims to examine crime rates per density. This approach is crucial for understanding the true impact of crime in different neighborhoods, as it considers the density of the population, providing a fair comparison and allowing for more targeted interventions. By investigating crime rates over time and incorporating population density, our analysis aims to contribute valuable insights for policymakers, law enforcement, and community stakeholders in fostering safer urban environments in Toronto.
-# Data {#sec-data}
+While previous statistics, such as those from @WorstTorontoNeighbourhoodsForCrime, have identified the most dangerous neighborhoods based on total reported crimes, these analyses often lack a nuanced perspective by not considering the population density of each neighborhood. To address this gap and offer a more comprehensive and equitable analysis, our study aims to examine crime rates per density. This approach is crucial for understanding the true impact of crime in different neighborhoods, as it considers the density of the population, providing a fair comparison and allowing for more targeted interventions. By investigating crime rates over time and incorporating population density, our analysis aims to contribute valuable insights for policymakers, law enforcement, and community stakeholders in fostering safer urban environments in Toronto.
+
+# Data
 
 ## Data Sourcing
 
@@ -38,13 +39,12 @@ The neighbourhood investigated in this paper is based on the new 158 City of Tor
 
 ## Data Preprocessing
 
-Data was cleaned and analyzed using the open source statistically programming language R (@citeR) , using functionalities from tidyverse (@tidyverse), ggplot2 (ggplot), dplyr (dplyr), sf (@sf), sp (@sp) and knitr (knitr).
-A sample of cleaned data of neighbourhood crime rate in 2023 can be viewed in Table 1.
+Data was cleaned and analyzed using the open source statistically programming language R (@citeR) , using functionalities from tidyverse (@tidyverse), ggplot2 (ggplot), dplyr (dplyr), sf (@sf), sp (@sp) and knitr (knitr). A sample of cleaned data of neighbourhood crime rate in 2023 can be viewed in Table 1.
 
 \newpage
 
 | Neighbourhood      | Population | Assault Rate | Auto Theft Rate | Shooting Rate | Homicide Rate | Robbery Rate |
-|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+|-----------------|----------|--------|-----------|---------|----------|-----------|
 | Yonge Bay Corridor | 14731      | 3.6864       | 1.5478          | 0.0136        | 0.0068        | 0.4209       |
 | Fenside-Parkwoods  | 22909      | 0.5674       | 0.1746          | 0.0044        | 0.0044        | 0.0611       |
 | North Toronto      | 15077      | 0.6964       | 0.1194          | 0.0072        | 0.0012        | 0.0929       |
