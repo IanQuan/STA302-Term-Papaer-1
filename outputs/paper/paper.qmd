@@ -3,7 +3,7 @@ title: "Visualizing Neighbourhood Crime Rates in Toronto"
 subtitle: "Is Toronto getting more dangerous?"
 author: 
   - Ian Quan
-thanks: "Code and data are available at: https://github.com/IanQuan/STA302-Term-Papaer-1"
+thanks: "Code and data are available at:https://github.com/IanQuan/Visualizing-Neighbourhood-Crime-Rates-in-Toronto"
 date: today
 date-format: long
 abstract: "Toronto has maintained a low crime rate in comparison to other major cities. This paper endeavors to ascertain whether Toronto exhibits a tendency of becoming more dangerous over time. This study delves into the crime rate trends observed over the past decade, identifying neighborhoods with high crime rates across various crime categories. Additionally, the analysis explores the relationship between population density and crime rates. Upon careful examination, the findings suggest that Toronto is indeed experiencing an increase in overall crime rates but remains relatively safe when compared to other cities. Furthermore, the analysis reveals that there is no direct correlation between population density and crime rates."
@@ -39,12 +39,12 @@ The neighbourhood investigated in this paper is based on the new 158 City of Tor
 
 ## Data Preprocessing
 
-Data was cleaned and analyzed using the open source statistically programming language R (@citeR) , using functionalities from tidyverse (@tidyverse), ggplot2 (ggplot), dplyr (dplyr), sf (@sf), sp (@sp) and knitr (knitr). A sample of cleaned data of neighbourhood crime rate in 2023 can be viewed in Table 1.
+Data was cleaned and analyzed using the open source statistically programming language R (@citeR) , using functionalities from tidyverse (@tidyverse), ggplot2 (@ggplot), dplyr (@dplyr), sf (@sf), sp (@sp) and knitr (@knitr). A sample of cleaned data of neighbourhood crime rate in 2023 can be viewed in Table 1.
 
 \newpage
 
 | Neighbourhood      | Population | Assault Rate | Auto Theft Rate | Shooting Rate | Homicide Rate | Robbery Rate |
-|-----------------|----------|--------|-----------|---------|----------|-----------|
+|-----------------|-----------|--------|-----------|---------|-----------|-----------|
 | Yonge Bay Corridor | 14731      | 3.6864       | 1.5478          | 0.0136        | 0.0068        | 0.4209       |
 | Fenside-Parkwoods  | 22909      | 0.5674       | 0.1746          | 0.0044        | 0.0044        | 0.0611       |
 | North Toronto      | 15077      | 0.6964       | 0.1194          | 0.0072        | 0.0012        | 0.0929       |
@@ -185,5 +185,18 @@ knitr::include_graphics(here::here("outputs/plots/plot_top_20_neighbourhood.png"
 ```
 
 \newpage
+
+# Discussion
+
+\
+The analysis of Toronto's crime rate data spanning from 2014 to 2023 provides a comprehensive overview of the city's criminal landscape. Beyond the specific trends identified in the results, it's essential to consider the broader implications and potential policy considerations.
+
+The observed increase in assault and auto theft crimes post-2020 suggests a need for focused interventions and community-based strategies to address these specific challenges. Understanding the dynamics of assault-related incidents becomes paramount, considering its prominence among reported crimes. Effective community policing and engagement initiatives may play a crucial role in curbing these upward trends.
+
+The absence of a clear correlation between population density and most crime categories underscores the multifaceted nature of criminal behavior. While population density alone may not be a reliable predictor of crime rates, the localized patterns in the northwest area suggest that certain neighborhoods face distinct challenges. Tailored strategies for these areas, possibly addressing socio-economic factors and community resources may be essential.
+
+The concentration of high crime rates in downtown Toronto, particularly in neighborhoods like Downtown Yonge East and Yonge-Bay Corridor, prompts a closer examination of urban dynamics. Urban planning and targeted safety measures in these central areas could contribute to a safer urban environment. Understanding the spatial distribution of crime allows for more precise resource allocation and strategic deployment of law enforcement.
+
+In conclusion, the nuanced analysis of Toronto's crime data reveals not only specific trends but also highlights the complexity of factors influencing criminal behavior. While an increase in certain crime categories is evident, Toronto remains relatively safe compare to other cities.
 
 # References
